@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>fiverfox</title>
+    <link rel="stylesheet" href="./popup.css" />
+  </head>
+  <body>
+    <main class="card">
+      <header class="header">
+        <div class="title">fiverfox</div>
+        <div class="subtitle">SOCKS5 localhost</div>
+      </header>
+
+      <section class="row">
+        <label class="rowLabel" for="enabled">On/Off</label>
+        <label class="switch" aria-label="On/Off">
+          <input id="enabled" type="checkbox" />
+          <span class="slider"></span>
+        </label>
+      </section>
+
+      <section class="row">
+        <label class="rowLabel" for="port">Port</label>
+        <input
+          id="port"
+          class="input"
+          type="number"
+          inputmode="numeric"
+          min="1"
+          max="65535"
+          step="1"
+          placeholder="1080"
+        />
+      </section>
+
+      <section class="row">
+        <label class="rowLabel" for="dns">DNS</label>
+        <label class="switch" aria-label="DNS">
+          <input id="dns" type="checkbox" />
+          <span class="slider"></span>
+        </label>
+      </section>
+
+      <p id="status" class="status" aria-live="polite"></p>
+      <p id="error" class="error" aria-live="polite"></p>
+    </main>
+
+    <script src="./popup.js"></script>
+  </body>
+</html>
+
