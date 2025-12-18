@@ -26,19 +26,7 @@ This extension **directly sets Firefox’s global proxy configuration** via `bro
   - **On** → SOCKS v5 `localhost:<port>`
 - Change **Port** then press ✅ to apply (while On).
 - Toggle **DNS** (applies immediately while On).
-
-## Permissions / Notes
-
-- Requires `proxy` + `storage` permissions.
-- Uses `tabs` permission to briefly open/close a background tab to `https://github.com/robots.txt` to probe whether the configured proxy is reachable (shown as an icon next to the Port field).
-- Firefox may require enabling **Run in Private Windows → Allow** for proxy control:
-  - `about:addons` → Extensions → **fiversox** → **Run in Private Windows**
-
-## Troubleshooting
-
-- If you see “Proxy is controlled by another extension.” disable the other extension or uninstall it.
-- If you see “Proxy settings are not controllable.” your Firefox environment/policies may block extensions from controlling proxy.
-
+  
 ## Contributors
 
 - 0xbenc
