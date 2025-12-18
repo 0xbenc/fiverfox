@@ -2,6 +2,8 @@
 
 A tiny Firefox (MV3) extension that toggles Firefox’s proxy between:
 
+![Fiversox popup](docs/images/popup.png)
+
 - **Off**: no proxy
 - **On**: manual **SOCKS v5** proxy at `localhost:<port>` (default `1080`)
 
@@ -17,15 +19,6 @@ This extension **directly sets Firefox’s global proxy configuration** via `bro
 ## Install for development
 
 [Developer notes](docs/dx.md)
-
-## Usage
-
-- Click the extension icon to open the popup.
-- Toggle **On/Off**:
-  - **Off** → “No proxy”
-  - **On** → SOCKS v5 `localhost:<port>`
-- Change **Port** then press ✅ to apply (while On).
-- Toggle **DNS** (applies immediately while On).
   
 ## Contributors
 
