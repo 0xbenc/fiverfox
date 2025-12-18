@@ -22,16 +22,34 @@
 
       <section class="row">
         <label class="rowLabel" for="port">Port</label>
-        <input
-          id="port"
-          class="input"
-          type="number"
-          inputmode="numeric"
-          min="1"
-          max="65535"
-          step="1"
-          placeholder="1080"
-        />
+        <div class="portControl">
+          <input
+            id="port"
+            class="input"
+            type="number"
+            inputmode="numeric"
+            min="1"
+            max="65535"
+            step="1"
+            placeholder="1080"
+          />
+          <button
+            id="portApply"
+            class="iconButton"
+            type="button"
+            hidden
+            aria-label="Apply port change"
+            title="Apply port change"
+          >
+            ↻
+          </button>
+          <span
+            id="portStatus"
+            class="portStatus"
+            aria-label="Proxy port status"
+            aria-live="polite"
+          ></span>
+        </div>
       </section>
 
       <section class="row">
@@ -42,10 +60,9 @@
         </label>
       </section>
 
+      <div class="divider" role="separator" aria-hidden="true"></div>
+
       <p id="status" class="status" aria-live="polite"></p>
-      <p id="substatus" class="substatus" aria-live="polite">
-        Placeholder text
-      </p>
       <p id="error" class="error" aria-live="polite"></p>
 
       <img
