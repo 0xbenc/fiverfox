@@ -15,6 +15,12 @@
 5. In `about:debugging`, click “Reload” for the extension.
 6. Re-open the popup from the toolbar icon to see changes.
 
+## Packaging
+
+- Build a distributable zip at `packages/fiversox.zip`:
+  - `./scripts/build-zip.sh`
+- Contents: `icons/`, `popup/`, and `manifest.json`.
+
 ## Debugging
 
 - In `about:debugging`, click “Inspect” to open DevTools for the extension context (popup/background), including console output.

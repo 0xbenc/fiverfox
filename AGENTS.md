@@ -5,7 +5,7 @@
 - `manifest.json`: MV3 WebExtension entrypoint (permissions + popup wiring).
 - `popup/`: UI and logic (`popup.html`, `popup.css`, `popup.js`).
 - `icons/`: extension icon assets (SVG used for all sizes).
-- Docs: `README.md` (usage), `dx.md` (dev notes), `PLAN.md`/`PROGRESS.md` (roadmap).
+- Docs: `README.md` (usage), `docs/dx.md` (dev notes), `PLAN.md`/`PROGRESS.md` (roadmap).
 
 ## Build, Test, and Development Commands
 

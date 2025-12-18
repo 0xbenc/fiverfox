@@ -16,7 +16,7 @@ This extension **directly sets Firefox’s global proxy configuration** via `bro
 
 ## Install for development
 
-[Developer notes](dx.md)
+[Developer notes](docs/dx.md)
 
 ## Usage
 
