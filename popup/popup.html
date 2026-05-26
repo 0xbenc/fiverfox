@@ -8,11 +8,6 @@
   </head>
   <body>
     <main class="app">
-      <header class="brand">
-        <img class="brand__mark" src="../icons/icon-48.png" alt="" />
-        <span class="brand__name">fiversox</span>
-      </header>
-
       <!-- Hero: the connection status IS the primary control. -->
       <label class="hero" aria-label="Toggle proxy">
         <input id="enabled" type="checkbox" class="hero__input" />
@@ -33,56 +28,61 @@
 
       <hr class="divider" />
 
-      <div class="settings">
-        <div class="setting">
-          <label class="setting__label" for="port">Port</label>
-          <div class="portControl">
-            <input
-              id="port"
-              class="input"
-              type="number"
-              inputmode="numeric"
-              min="1"
-              max="65535"
-              step="1"
-              placeholder="1080"
-            />
-            <button
-              id="portApply"
-              class="iconButton"
-              type="button"
-              hidden
-              aria-label="Apply port change"
-              title="Apply port change"
-            >
-              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 12a9 9 0 1 1-2.64-6.36" />
-                <path d="M21 3v6h-6" />
-              </svg>
-            </button>
-            <span
-              id="portStatus"
-              class="portStatus"
-              aria-label="Proxy port status"
-              aria-live="polite"
-            ></span>
-          </div>
+      <div class="setting">
+        <label class="setting__label" for="port">Port</label>
+        <div class="portControl">
+          <input
+            id="port"
+            class="input"
+            type="number"
+            inputmode="numeric"
+            min="1"
+            max="65535"
+            step="1"
+            placeholder="1080"
+          />
+          <button
+            id="portApply"
+            class="iconButton"
+            type="button"
+            hidden
+            aria-label="Apply port change"
+            title="Apply port change"
+          >
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+              <path d="M21 3v6h-6" />
+            </svg>
+          </button>
+          <span
+            id="portStatus"
+            class="portStatus"
+            aria-label="Proxy port status"
+            aria-live="polite"
+          ></span>
         </div>
+      </div>
 
-        <div class="setting">
-          <span class="setting__label">
-            DNS
-            <span class="setting__hint">Resolve hostnames through proxy</span>
-          </span>
-          <label class="switch" aria-label="DNS">
-            <input id="dns" type="checkbox" />
-            <span class="slider"></span>
-          </label>
-        </div>
+      <hr class="divider" />
+
+      <div class="setting">
+        <span class="setting__label">
+          DNS
+          <span class="setting__hint">Resolve hostnames through proxy</span>
+        </span>
+        <label class="switch" aria-label="DNS">
+          <input id="dns" type="checkbox" />
+          <span class="slider"></span>
+        </label>
       </div>
 
       <p id="status" class="status" aria-live="polite"></p>
       <p id="error" class="error" aria-live="polite"></p>
+
+      <footer class="brand">
+        <img class="brand__mark" src="../icons/icon-48.png" alt="" />
+        <span class="brand__name">fiversox</span>
+      </footer>
     </main>
 
     <script src="./popup.js"></script>
