@@ -56,6 +56,45 @@ function isNormalProxyOutcome(value, uiState) {
   return false;
 }
 
+// Reflect proxy state in the toolbar icon: gray (off), cyan (on/reachable),
+// orange (on but unreachable). The icon persists after the popup closes and
+// resets to the gray default on browser restart (when proxy is cleared too).
+// PNGs (not SVG): Firefox rasterizes SVG passed to setIcon unreliably,
+// often to a blank icon, so ship fixed-size rasters.
+const ACTION_ICONS = Object.freeze({
+  off: {
+    16: "icons/state-off-16.png",
+    32: "icons/state-off-32.png",
+    48: "icons/state-off-48.png"
+  },
+  on: {
+    16: "icons/state-on-16.png",
+    32: "icons/state-on-32.png",
+    48: "icons/state-on-48.png"
+  },
+  fail: {
+    16: "icons/state-error-16.png",
+    32: "icons/state-error-32.png",
+    48: "icons/state-error-48.png"
+  }
+});
+
+function setActionIcon(state) {
+  const sizes = ACTION_ICONS[state] ?? ACTION_ICONS.off;
+  // Resolve to absolute moz-extension URLs. Relative paths passed to
+  // setIcon from the popup resolve against popup/, not the extension root,
+  // which makes the toolbar icon blank out.
+  const path = {};
+  for (const [size, rel] of Object.entries(sizes)) {
+    path[size] = browser.runtime.getURL(rel);
+  }
+  try {
+    void browser.action.setIcon({ path }).catch(() => {});
+  } catch (err) {
+    // ignore — icon is a non-critical affordance
+  }
+}
+
 function setPortStatus(kind) {
   if (!kind) {
     portStatusEl.textContent = "";
@@ -390,6 +429,7 @@ async function applyNow(nextState) {
     updateLivePortFromProxy({ proxyType: "none" });
     setStatus("");
     setPortStatus(null);
+    setActionIcon("off");
     portHotChange = false;
     syncPortApplyVisibility();
     cancelProbe();
@@ -441,6 +481,7 @@ async function applyNow(nextState) {
 
   updateLivePortFromProxy(value);
   setStatus("");
+  setActionIcon("on");
   portHotChange = false;
   syncPortApplyVisibility();
   scheduleProbe({ ...nextState, port: appliedPort, dns: appliedDns }, 0);
@@ -531,8 +572,10 @@ function startProbe(nextState) {
         if (ok) {
           lastOkKey = key;
           setPortStatus("ok");
+          setActionIcon("on");
         } else if (lastOkKey !== key) {
           setPortStatus("fail");
+          setActionIcon("fail");
         }
 
         const tabId = probeTabId;
@@ -571,7 +614,10 @@ function startProbe(nextState) {
       };
     } catch (err) {
       if (seq !== probeSeq) return;
-      if (lastOkKey !== key) setPortStatus("fail");
+      if (lastOkKey !== key) {
+        setPortStatus("fail");
+        setActionIcon("fail");
+      }
     }
   })();
 }
@@ -705,6 +751,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     } else {
       setStatus(formatCurrentProxy(value, state));
     }
+    setActionIcon(state.enabled ? "on" : "off");
     syncPortApplyVisibility();
     scheduleProbe(state, 0);
   } catch (err) {

@@ -52,8 +52,31 @@
   --danger-line: rgba(255, 138, 30, 0.5);
   --danger-bloom: rgba(255, 138, 30, 0.5);
 
+  /* live-state accent (late-bound to the families above, so it follows the
+     color scheme). Default = neutral; <body> swaps it per connection state. */
+  --state: var(--neutral);
+  --state-soft: var(--neutral-bloom);
+  --state-line: var(--neutral-line);
+  --state-bloom: var(--neutral-bloom);
+
   --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code",
     "Roboto Mono", Menlo, Consolas, monospace;
+}
+
+/* Connected (probe ok) -> cyan; unreachable (probe fail) -> orange.
+   Everything else (off / connecting) stays neutral white. */
+body:has(.hero__input:checked):has(.portStatus[data-kind="ok"]) {
+  --state: var(--accent);
+  --state-soft: var(--accent-soft);
+  --state-line: var(--accent-line);
+  --state-bloom: var(--accent-bloom);
+}
+
+body:has(.hero__input:checked):has(.portStatus[data-kind="fail"]) {
+  --state: var(--danger);
+  --state-soft: var(--danger-soft);
+  --state-line: var(--danger-line);
+  --state-bloom: var(--danger-bloom);
 }
 
 @media (prefers-color-scheme: light) {
@@ -134,13 +157,6 @@ body {
   align-items: center;
   justify-content: center;
   gap: var(--s2);
-}
-
-.brand__mark {
-  width: 20px;
-  height: 20px;
-  border-radius: 6px;
-  opacity: 0.95;
 }
 
 .brand__name {
@@ -388,15 +404,15 @@ body:has(.hero__input:checked):has(.portStatus[data-kind="fail"]) .hero__state::
 }
 
 .input:hover {
-  border-color: var(--accent-line);
+  border-color: var(--state-line);
 }
 
 .input:focus {
   outline: none;
-  border-color: var(--accent);
+  border-color: var(--state);
   box-shadow:
     inset 0 1px 0 var(--inset-hi),
-    0 0 0 3px var(--accent-soft);
+    0 0 0 3px var(--state-soft);
 }
 
 .iconButton {
@@ -469,16 +485,16 @@ body:has(.hero__input:checked):has(.portStatus[data-kind="fail"]) .hero__state::
     0 0 12px var(--danger-bloom);
 }
 
-/* checking — gentle pulse on the existing accent border */
+/* checking — gentle neutral pulse (not connected yet) */
 .portControl:has(.portStatus[data-kind="loading"]) .input {
-  border-color: var(--accent-line);
+  border-color: var(--state-line);
   animation: portPulse 1.2s ease-in-out infinite;
 }
 
 @keyframes portPulse {
   0%,
   100% {
-    box-shadow: inset 0 1px 0 var(--inset-hi), 0 0 0 0 var(--accent-soft);
+    box-shadow: inset 0 1px 0 var(--inset-hi), 0 0 0 0 var(--state-soft);
   }
   50% {
     box-shadow: inset 0 1px 0 var(--inset-hi), 0 0 0 4px transparent;
@@ -530,10 +546,10 @@ body:has(.hero__input:checked):has(.portStatus[data-kind="fail"]) .hero__state::
 }
 
 .switch input:checked + .slider {
-  background: var(--accent);
+  background: var(--state);
   box-shadow:
-    inset 0 0 0 1px var(--accent-line),
-    0 0 12px var(--accent-bloom);
+    inset 0 0 0 1px var(--state-line),
+    0 0 12px var(--state-bloom);
 }
 
 .switch input:checked + .slider::before {
@@ -545,7 +561,7 @@ body:has(.hero__input:checked):has(.portStatus[data-kind="fail"]) .hero__state::
 .switch input:focus-visible + .slider {
   box-shadow:
     inset 0 0 0 1px var(--line-2),
-    0 0 0 3px var(--accent-soft);
+    0 0 0 3px var(--state-soft);
 }
 
 /* ---------- Status & error (minimal, no heavy boxes) ---------- */
