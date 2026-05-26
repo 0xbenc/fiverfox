@@ -1,8 +1,9 @@
 /* ============================================================
-   fiversox — precision networking tool
-   Design language: matte graphite, edge-lit depth, restrained
-   accent that only earns color when connected. One surface,
-   spacing as structure, a single hero.
+   fiversox — precision networking tool / Tron palette
+   Matte graphite base (unchanged). Three semantic roles:
+     neutral  -> glowing near-white
+     positive -> Tron cyan
+     negative -> Tron orange
    ============================================================ */
 
 :root {
@@ -20,27 +21,36 @@
   --r-control: 10px;
   --r-shell: 18px;
 
-  /* dark — matte graphite with a faint cobalt bloom up top */
+  /* dark — matte graphite base (kept) with a faint cool bloom up top */
   --bg: #0b0d12;
-  --bg-bloom: rgba(56, 92, 160, 0.14);
-  --ink: #f1f3f7;
-  --ink-2: rgba(241, 243, 247, 0.62);
-  --ink-3: rgba(241, 243, 247, 0.36);
-  --line: rgba(255, 255, 255, 0.08);
-  --line-2: rgba(255, 255, 255, 0.14);
-  --fill: rgba(255, 255, 255, 0.03);
-  --fill-2: rgba(255, 255, 255, 0.06);
-  --inset-hi: rgba(255, 255, 255, 0.07);
+  --bg-bloom: rgba(120, 180, 220, 0.1);
+  --ink: #eaf4fb;
+  --ink-2: rgba(234, 244, 251, 0.62);
+  --ink-3: rgba(234, 244, 251, 0.36);
+  --line: rgba(210, 235, 255, 0.09);
+  --line-2: rgba(210, 235, 255, 0.16);
+  --fill: rgba(210, 235, 255, 0.03);
+  --fill-2: rgba(210, 235, 255, 0.06);
+  --inset-hi: rgba(220, 240, 255, 0.08);
   --shadow: rgba(0, 0, 0, 0.55);
 
-  /* accent — refined emerald, used sparingly, only when active */
-  --accent: #3ad6a0;
-  --accent-ink: #04140d;
-  --accent-soft: rgba(58, 214, 160, 0.14);
-  --accent-line: rgba(58, 214, 160, 0.4);
-  --accent-bloom: rgba(58, 214, 160, 0.3);
+  /* neutral — glowing Tron near-white */
+  --neutral: #d8edff;
+  --neutral-line: rgba(216, 237, 255, 0.32);
+  --neutral-bloom: rgba(216, 237, 255, 0.28);
 
-  --danger: #f4738a;
+  /* positive — Tron cyan */
+  --accent: #1ad6ff;
+  --accent-ink: #021016;
+  --accent-soft: rgba(26, 214, 255, 0.16);
+  --accent-line: rgba(26, 214, 255, 0.5);
+  --accent-bloom: rgba(26, 214, 255, 0.55);
+
+  /* negative — Tron orange */
+  --danger: #ff8a1e;
+  --danger-soft: rgba(255, 138, 30, 0.16);
+  --danger-line: rgba(255, 138, 30, 0.5);
+  --danger-bloom: rgba(255, 138, 30, 0.5);
 
   --mono: ui-monospace, "SF Mono", "JetBrains Mono", "Cascadia Code",
     "Roboto Mono", Menlo, Consolas, monospace;
@@ -59,11 +69,22 @@
     --fill-2: rgba(16, 20, 29, 0.05);
     --inset-hi: rgba(255, 255, 255, 0.7);
     --shadow: rgba(16, 20, 29, 0.14);
-    --accent: #1aa978;
+
+    /* neutral has no glow on a light surface — resolve to ink */
+    --neutral: rgba(16, 20, 29, 0.7);
+    --neutral-line: rgba(16, 20, 29, 0.18);
+    --neutral-bloom: transparent;
+
+    --accent: #0699c2;
     --accent-ink: #ffffff;
-    --accent-soft: rgba(26, 169, 120, 0.12);
-    --accent-line: rgba(26, 169, 120, 0.38);
-    --accent-bloom: rgba(26, 169, 120, 0.22);
+    --accent-soft: rgba(6, 153, 194, 0.12);
+    --accent-line: rgba(6, 153, 194, 0.4);
+    --accent-bloom: rgba(6, 153, 194, 0.22);
+
+    --danger: #d96412;
+    --danger-soft: rgba(217, 100, 18, 0.12);
+    --danger-line: rgba(217, 100, 18, 0.4);
+    --danger-bloom: rgba(217, 100, 18, 0.22);
   }
 }
 
@@ -122,6 +143,7 @@ body {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: -0.2px;
+  text-shadow: 0 0 10px var(--neutral-bloom);
 }
 
 /* ---------- Hero / connection orb ---------- */
@@ -150,16 +172,17 @@ body {
   height: 96px;
 }
 
-/* breathing ring — neutral when off */
+/* breathing ring — neutral near-white glow when off */
 .orb__ring {
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1px solid var(--line-2);
+  border: 1px solid var(--neutral-line);
+  box-shadow: 0 0 14px var(--neutral-bloom);
   transition: border-color 0.4s ease, box-shadow 0.4s ease;
 }
 
-/* matte disc with edge lighting + ambient shadow */
+/* matte disc with edge lighting + neutral near-white glow */
 .orb__face {
   position: relative;
   display: grid;
@@ -167,15 +190,21 @@ body {
   width: 72px;
   height: 72px;
   border-radius: 50%;
-  color: var(--ink-2);
+  color: var(--neutral);
   background:
     radial-gradient(120% 120% at 50% 12%, var(--fill-2), transparent 60%),
     var(--fill);
   box-shadow:
     inset 0 1px 0 var(--inset-hi),
-    inset 0 0 0 1px var(--line),
+    inset 0 0 0 1px var(--neutral-line),
     0 6px 16px var(--shadow);
   transition: color 0.35s ease, box-shadow 0.35s ease, transform 0.15s ease;
+}
+
+/* near-white line glow on the power glyph */
+.orb__face svg {
+  filter: drop-shadow(0 0 5px var(--neutral-bloom));
+  transition: filter 0.35s ease;
 }
 
 .hero:active .orb__face {
@@ -196,8 +225,13 @@ body {
     0 6px 22px var(--accent-bloom);
 }
 
+.hero__input:checked + .orb .orb__face svg {
+  filter: drop-shadow(0 0 7px var(--accent-bloom));
+}
+
 .hero__input:checked + .orb .orb__ring {
   border-color: var(--accent-line);
+  box-shadow: 0 0 16px var(--accent-bloom);
   animation: breathe 3.4s ease-in-out infinite;
 }
 
@@ -213,6 +247,25 @@ body {
   }
 }
 
+/* probe failed — the orb goes orange to match the "Unreachable" label */
+body:has(.hero__input:checked):has(.portStatus[data-kind="fail"]) .orb__face {
+  color: var(--danger);
+  box-shadow:
+    inset 0 1px 0 var(--inset-hi),
+    inset 0 0 0 1px var(--danger-line),
+    0 6px 22px var(--danger-bloom);
+}
+
+body:has(.hero__input:checked):has(.portStatus[data-kind="fail"]) .orb__face svg {
+  filter: drop-shadow(0 0 7px var(--danger-bloom));
+}
+
+body:has(.hero__input:checked):has(.portStatus[data-kind="fail"]) .orb__ring {
+  border-color: var(--danger-line);
+  box-shadow: 0 0 16px var(--danger-bloom);
+  animation: none;
+}
+
 .hero__meta {
   display: flex;
   flex-direction: column;
@@ -224,20 +277,42 @@ body {
   font-size: 17px;
   font-weight: 600;
   letter-spacing: -0.3px;
-  color: var(--ink-2);
-  transition: color 0.35s ease;
+  color: var(--neutral);
+  text-shadow: 0 0 12px var(--neutral-bloom);
+  transition: color 0.35s ease, text-shadow 0.35s ease;
 }
 
+/* --- semantics: the label reflects the actual probe outcome, not just
+   whether the proxy is configured --- */
+
+/* off */
 .hero__state::after {
   content: "Disconnected";
 }
 
-.hero__input:checked ~ .hero__meta .hero__state {
-  color: var(--ink);
+/* on + probe still running */
+body:has(.hero__input:checked) .hero__state::after {
+  content: "Connecting…";
 }
 
-.hero__input:checked ~ .hero__meta .hero__state::after {
+/* on + SOCKS server answered (cyan) */
+body:has(.hero__input:checked):has(.portStatus[data-kind="ok"]) .hero__state {
+  color: var(--accent);
+  text-shadow: 0 0 14px var(--accent-bloom);
+}
+
+body:has(.hero__input:checked):has(.portStatus[data-kind="ok"]) .hero__state::after {
   content: "Connected";
+}
+
+/* on + SOCKS server unreachable (orange) — do NOT claim connected */
+body:has(.hero__input:checked):has(.portStatus[data-kind="fail"]) .hero__state {
+  color: var(--danger);
+  text-shadow: 0 0 14px var(--danger-bloom);
+}
+
+body:has(.hero__input:checked):has(.portStatus[data-kind="fail"]) .hero__state::after {
+  content: "Unreachable";
 }
 
 .hero__endpoint {
@@ -300,7 +375,7 @@ body {
 }
 
 .input {
-  width: 64px;
+  width: 74px;
   padding: 6px 8px;
   border: 1px solid var(--line-2);
   border-radius: var(--r-control);
@@ -363,21 +438,55 @@ body {
   cursor: not-allowed;
 }
 
+/* Status is conveyed by a bold colored border around the input (rules
+   below). The emoji node stays in the DOM, visually hidden, so screen
+   readers still announce reachable / not-reachable. */
 .portStatus {
-  min-width: 16px;
-  text-align: center;
-  font-size: 13px;
-  line-height: 1;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
-.portStatus[data-kind="loading"] {
-  display: inline-block;
-  animation: spin 1.1s linear infinite;
+/* reachable / not reachable — triple-thickness ring vs the 1px hover border */
+.portControl:has(.portStatus[data-kind="ok"]) .input,
+.portControl:has(.portStatus[data-kind="fail"]) .input {
+  border-width: 3px;
 }
 
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
+.portControl:has(.portStatus[data-kind="ok"]) .input {
+  border-color: var(--accent);
+  box-shadow:
+    inset 0 1px 0 var(--inset-hi),
+    0 0 0 3px var(--accent-soft),
+    0 0 12px var(--accent-bloom);
+}
+
+.portControl:has(.portStatus[data-kind="fail"]) .input {
+  border-color: var(--danger);
+  box-shadow:
+    inset 0 1px 0 var(--inset-hi),
+    0 0 0 3px var(--danger-soft),
+    0 0 12px var(--danger-bloom);
+}
+
+/* checking — gentle pulse on the existing accent border */
+.portControl:has(.portStatus[data-kind="loading"]) .input {
+  border-color: var(--accent-line);
+  animation: portPulse 1.2s ease-in-out infinite;
+}
+
+@keyframes portPulse {
+  0%,
+  100% {
+    box-shadow: inset 0 1px 0 var(--inset-hi), 0 0 0 0 var(--accent-soft);
+  }
+  50% {
+    box-shadow: inset 0 1px 0 var(--inset-hi), 0 0 0 4px transparent;
   }
 }
 
