@@ -65,17 +65,26 @@ const ACTION_ICONS = Object.freeze({
   off: {
     16: "icons/state-off-16.png",
     32: "icons/state-off-32.png",
-    48: "icons/state-off-48.png"
+    48: "icons/state-off-48.png",
+    64: "icons/state-off-64.png",
+    96: "icons/state-off-96.png",
+    128: "icons/state-off-128.png"
   },
   on: {
     16: "icons/state-on-16.png",
     32: "icons/state-on-32.png",
-    48: "icons/state-on-48.png"
+    48: "icons/state-on-48.png",
+    64: "icons/state-on-64.png",
+    96: "icons/state-on-96.png",
+    128: "icons/state-on-128.png"
   },
   fail: {
     16: "icons/state-error-16.png",
     32: "icons/state-error-32.png",
-    48: "icons/state-error-48.png"
+    48: "icons/state-error-48.png",
+    64: "icons/state-error-64.png",
+    96: "icons/state-error-96.png",
+    128: "icons/state-error-128.png"
   }
 });
 
